@@ -82,6 +82,7 @@ public class CollectionHelper {
      * @param context context which can be used to get the setting for the path to the Collection
      * @return instance of the Collection
      */
+    // CC: One of the first steps
     public synchronized Collection getCol(Context context) {
         // Open collection
         String path = getCollectionPath(context);

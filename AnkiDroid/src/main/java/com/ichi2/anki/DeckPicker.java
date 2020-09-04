@@ -207,6 +207,7 @@ public class DeckPicker extends NavigationDrawerActivity implements
         }
     };
 
+    // CC: When click on a deck to review
     private final OnClickListener mDeckClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -460,6 +461,7 @@ public class DeckPicker extends NavigationDrawerActivity implements
         }
     }
 
+    // CC: Configures the menu of FABs on initial screen
     private void configureFloatingActionsMenu() {
         final FloatingActionButton addDeckButton = findViewById(R.id.add_deck_action);
         final FloatingActionButton addSharedButton = findViewById(R.id.add_shared_action);
@@ -735,6 +737,7 @@ public class DeckPicker extends NavigationDrawerActivity implements
             mSyncOnResume = false;
         } else if (colIsOpen()) {
             selectNavigationItem(R.id.nav_decks);
+            // CC: Used
             updateDeckList();
             setTitle(getResources().getString(R.string.app_name));
         }

@@ -152,6 +152,7 @@ public class Collection {
         this(context, db, path, server, false);
     }
 
+    // CC: Initialize some Collection
     public Collection(Context context, DB db, String path, boolean server, boolean log) {
         mContext = context;
         mDebugLog = log;

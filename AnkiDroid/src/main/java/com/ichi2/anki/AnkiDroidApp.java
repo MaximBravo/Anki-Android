@@ -183,7 +183,7 @@ public class AnkiDroidApp extends Application {
         ACRA.init(this, acraCoreConfigBuilder);
     }
 
-
+    // CC: Start here
     /**
      * On application creation.
      */
@@ -244,6 +244,7 @@ public class AnkiDroidApp extends Application {
                 }
             }
         }
+        // CC: First step according to debug session
         new BootService().onReceive(this, new Intent(this, BootService.class));
     }
 

@@ -99,7 +99,7 @@ public class Reviewer extends AbstractFlashcardViewer {
             Timber.d("onCreate() :: received Intent with action = %s", getIntent().getAction());
             selectDeckFromExtra();
         }
-
+        // CC: Gets called when you tap on the deck to review on main page
         startLoadingCollection();
     }
 
@@ -159,6 +159,7 @@ public class Reviewer extends AbstractFlashcardViewer {
         }
     }
 
+    // CC: When the Collection is loaded, start review important
     @Override
     protected void onCollectionLoaded(Collection col) {
         super.onCollectionLoaded(col);
@@ -172,11 +173,14 @@ public class Reviewer extends AbstractFlashcardViewer {
             setWhiteboardVisibility(true);
         }
 
+        // CC: Scedule is reset? interesting
         col.getSched().reset();     // Reset schedule incase card had previous been loaded
         DeckTask.launchDeckTask(DeckTask.TASK_TYPE_ANSWER_CARD, mAnswerCardHandler,
                 new DeckTask.TaskData(null, 0));
 
         disableDrawerSwipeOnConflicts();
+
+        // CC: So there is a scheduler that will talk to Activity interesting
         // Add a weak reference to current activity so that scheduler can talk to to Activity
         mSched.setContext(new WeakReference<Activity>(this));
 

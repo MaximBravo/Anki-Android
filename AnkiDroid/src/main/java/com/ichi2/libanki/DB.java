@@ -63,7 +63,7 @@ public class DB {
      * Open a database connection to an ".anki" SQLite file.
      */
     public DB(String ankiFilename) {
-
+        // CC: Used
         SupportSQLiteOpenHelper.Configuration configuration = SupportSQLiteOpenHelper.Configuration.builder(AnkiDroidApp.getInstance())
                 .name(ankiFilename)
                 .callback(getDBCallback())

@@ -24,7 +24,7 @@ import com.ichi2.compat.Compat;
 import com.ichi2.compat.CompatHelper;
 
 public final class NotificationChannels {
-    public enum Channel { GENERAL, SYNC, GLOBAL_REMINDERS, DECK_REMINDERS }
+    public enum Channel { GENERAL, SYNC, GLOBAL_REMINDERS, DECK_REMINDERS, CC_TEST }
 
     public static String getId(Channel channel) {
         switch (channel) {
@@ -34,6 +34,8 @@ public final class NotificationChannels {
                 return "Global Reminders";
             case DECK_REMINDERS:
                 return "Deck Reminders";
+            case CC_TEST:
+                return "ChineseCoach Test";
             case GENERAL:
             default:
                 return "General Notifications";
@@ -48,6 +50,8 @@ public final class NotificationChannels {
                 return res.getString(R.string.widget_minimum_cards_due_notification_ticker_title);
             case DECK_REMINDERS:
                 return res.getString(R.string.deck_conf_reminders);
+            case CC_TEST:
+                return "ChineseCoach Test";
             case GENERAL:
             default:
                 return res.getString(R.string.app_name);

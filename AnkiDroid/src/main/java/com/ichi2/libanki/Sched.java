@@ -150,7 +150,7 @@ public class Sched {
         mHaveQueues = true;
     }
 
-
+    // CC: Important
     public void answerCard(Card card, int ease) {
         mCol.log();
         mCol.markReview(card);
@@ -1023,7 +1023,6 @@ public class Sched {
             }
         }
     }
-
 
     private int _startingLeft(Card card) {
         try {
@@ -1972,15 +1971,16 @@ public class Sched {
      * @param ease The button number (easy, good etc.)
      * @return A string like “1 min” or “1.7 mo”
      */
+    // CC: This will give when the card needs to be reviewed next. Very important method.
     public String nextIvlStr(Context context, Card card, int ease) {
         long ivl = nextIvl(card, ease);
         if (ivl == 0) {
-            return context.getString(R.string.sched_end);
+            return context.getString(R.string.sched_end); // CC: (end)
         }
         String s = Utils.timeQuantity(context, ivl);
         try {
             if (ivl < mCol.getConf().getInt("collapseTime")) {
-                s = context.getString(R.string.less_than_time, s);
+                s = context.getString(R.string.less_than_time, s); // CC: < s
             }
         } catch (JSONException e) {
             throw new RuntimeException(e);

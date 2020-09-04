@@ -133,6 +133,7 @@ public class DeckTask extends BaseAsyncTask<DeckTask.TaskData, DeckTask.TaskData
      * @param params to pass to the task
      * @return the newly created task
      */
+    // CC: used
     public static DeckTask launchDeckTask(int type, Listener listener, TaskData... params) {
         // Start new task
         DeckTask newTask = new DeckTask(type, listener, sLatestInstance);
@@ -492,6 +493,7 @@ public class DeckTask extends BaseAsyncTask<DeckTask.TaskData, DeckTask.TaskData
             db.getDatabase().beginTransaction();
             try {
                 if (oldCard != null) {
+                    // CC: I think I finally found where the card stuff gets updated WE HAVE STRUCK GOLD
                     sched.answerCard(oldCard, ease);
                 }
                 if (newCard == null) {

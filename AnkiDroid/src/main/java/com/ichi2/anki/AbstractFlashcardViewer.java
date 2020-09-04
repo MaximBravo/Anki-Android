@@ -47,6 +47,7 @@ import android.text.Spanned;
 import android.text.SpannedString;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.KeyEvent;
@@ -78,6 +79,7 @@ import com.ichi2.anim.ViewAnimation;
 import com.ichi2.anki.receiver.SdCardReceiver;
 import com.ichi2.anki.reviewer.ReviewerExtRegistry;
 import com.ichi2.async.DeckTask;
+import com.ichi2.chinesecoach.Interceptor;
 import com.ichi2.compat.CompatHelper;
 import com.ichi2.libanki.Card;
 import com.ichi2.libanki.Collection;
@@ -112,6 +114,8 @@ import timber.log.Timber;
 
 @SuppressWarnings({"PMD.AvoidThrowingRawExceptionTypes","PMD.FieldDeclarationsShouldBeAtStartOfClass"})
 public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
+
+    private static final String TAG = "AbstractFlashcardViewer";
 
     /**
      * Result codes that are returned when this activity finishes.
@@ -371,6 +375,7 @@ public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
         }
     };
 
+    // CC: When an ease button when reviewing is clicked this will handle what is done
     private View.OnClickListener mSelectEaseHandler = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -1221,7 +1226,7 @@ public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
         }
     }
 
-
+    // CC: Should be where the logic for updating the card stuff should be
     protected void answerCard(int ease) {
         if (mInAnswer) {
             return;
@@ -1236,7 +1241,7 @@ public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
         // Set the dots appearing below the toolbar
         switch (ease) {
             case EASE_1:
-                mChosenAnswer.setText("\u2022");
+                mChosenAnswer.setText("\u2022"); // CC: •
                 mChosenAnswer.setTextColor(ContextCompat.getColor(this, R.color.material_red_500));
                 break;
             case EASE_2:
@@ -1270,7 +1275,7 @@ public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
                 new DeckTask.TaskData(mCurrentCard, mCurrentEase));
     }
 
-
+    // CC: Sets layout for the reviewing of words
     // Set the content view to the one provided and initialize accessors.
     @SuppressWarnings("deprecation") // Tracked separately as #5023 on github for clipboard
     protected void initLayout() {
@@ -1547,7 +1552,7 @@ public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
         }
     }
 
-
+    // CC: Starting to get to the logic for ease
     protected void showEaseButtons() {
         // hide flipcard button
         mFlipCardLayout.setVisibility(View.GONE);
@@ -1832,6 +1837,7 @@ public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
             revCount = new SpannableString("???");
         }
 
+        // CC: Shows three different types of cards
         switch (mSched.countIdx(mCurrentCard)) {
             case Card.TYPE_NEW:
                 newCount.setSpan(new UnderlineSpan(), 0, newCount.length(), 0);
@@ -1921,6 +1927,8 @@ public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
             displayString = getResources().getString(R.string.empty_card_warning);
         } else {
             question = mCurrentCard.q();
+            Log.e(TAG, "Question: " + mCurrentCard.q());
+            Interceptor.sendNotification(getApplicationContext(), Interceptor.ridStyleHtml(question));
             question = getCol().getMedia().escapeImages(question);
             question = typeAnsQuestionFilter(question);
 
@@ -1989,7 +1997,7 @@ public abstract class AbstractFlashcardViewer extends NavigationDrawerActivity {
         return Utils.nfcNormalized(answer.trim());
     }
 
-
+    // CC: displays the card answer
     protected void displayCardAnswer() {
         Timber.d("displayCardAnswer()");
 

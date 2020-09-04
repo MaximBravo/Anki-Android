@@ -42,7 +42,7 @@ public class Storage {
         return Collection(context, path, false, false);
     }
 
-
+    // CC: Intro something
     public static Collection Collection(Context context, String path, boolean server, boolean log) {
         assert path.endsWith(".anki2");
         // Since this is the entry point into libanki, initialize the hooks here.

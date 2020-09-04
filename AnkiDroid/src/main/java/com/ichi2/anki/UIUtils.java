@@ -114,7 +114,7 @@ public class UIUtils {
         return cal.getTimeInMillis();
     }
 
-
+    // CC: Used somehow
     public static void saveCollectionInBackground(Context context) {
         if (CollectionHelper.getInstance().colIsOpen()) {
             DeckTask.launchDeckTask(DeckTask.TASK_TYPE_SAVE_COLLECTION, new DeckTask.TaskListener() {
